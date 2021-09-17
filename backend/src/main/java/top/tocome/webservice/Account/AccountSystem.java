@@ -1,5 +1,8 @@
 package top.tocome.webservice.Account;
 
+import com.alibaba.fastjson.JSON;
+import top.tocome.io.File;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -59,6 +62,25 @@ public class AccountSystem {
             if (a.getId().equals(id)) return a;
         }
         return null;
+    }
+
+    /**
+     * 保存账号信息的文件
+     */
+    String savePath = "accounts.json";
+
+    /**
+     * 保存账号信息到{@link #savePath}
+     */
+    public void saveAccounts() {
+        File.write(savePath, JSON.toJSONBytes(accounts));
+    }
+
+    /**
+     * 从{@link #savePath}中读取账号信息
+     */
+    public void loadAccounts() {
+        accounts = (ArrayList<Account>) JSON.parseArray(File.read(savePath), Account.class);
     }
 
     /**
