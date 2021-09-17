@@ -21,6 +21,10 @@ function showFiles(path) {
         success: function (data) {
             console.log(data)
             let json = JSON.parse(data)
+            if (json.code != 0) {
+                alert(json.message)
+                return;
+            }
             $("#files").html(getFileBlock("directory", "savetime", "size"))
                 .append(
                     $(getFileBlock("..", "", "", "dir icon"))
@@ -34,7 +38,7 @@ function showFiles(path) {
                         })
                 )
 
-            json.forEach(
+            json.files.forEach(
                 file => {
                     let classname;
                     if (file.isDirectory == true) classname = "dir icon";
@@ -51,7 +55,7 @@ function showFiles(path) {
                 })
         },
         error: function () {
-            alert("error occur")
+            alert("请求失败")
         }
     })
 }
