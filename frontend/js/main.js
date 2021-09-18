@@ -7,23 +7,17 @@
  */
 const server = "http://localhost:8000/";
 
-function ajax(type, url, data, funSuccess, funFailed) {
+function ajax({type, url, data, success, failed}) {
     $.ajax({
         type: type,
         url: url,
         data: data,
+        dataType: "json",
         success: function (data) {
-            console.log(data)
-            let json = JSON.parse(data)
-            if (json.code != 0) {
-                alert(json.message)
-                //Todo:失败
-                funFailed(json)
-                return;
-            }
-            alert(json.message)
-            //Todo:成功
-            funSuccess(json)
+            if (json.code == 0)
+                success(data)
+            else
+                failed(data)
         },
         error: function () {
             alert("请求失败")

@@ -42,11 +42,11 @@ function showFiles(path) {
             type: "list",
             path: path
         },
+        dataType: "json",
         success: function (data) {
             console.log(data)
-            let json = JSON.parse(data)
-            if (json.code != 0) {
-                alert(json.message)
+            if (data.code != 0) {
+                alert(data.message)
                 return;
             }
             $("#files").html(getFileBlock("directory", "savetime", "size"))
@@ -62,7 +62,7 @@ function showFiles(path) {
                         })
                 )
 
-            json.files.forEach(
+            data.files.forEach(
                 file => {
                     let classname;
                     if (file.isDirectory == true) classname = "dir icon";
@@ -86,29 +86,16 @@ function showFiles(path) {
 
 /**
  * 新建目录
- * @param path 新目录路径
  */
-function mkdir(path) {
-    $.ajax({
+function mkdir(path, success, failed) {
+    ajax({
         type: "post",
         url: fileServer,
         data: {
             type: "mkdir",
             path: path
         },
-        success: function (data) {
-            console.log(data)
-            let json = JSON.parse(data)
-            if (json.code != 0) {
-                alert(json.message)
-                //Todo:失败
-                return;
-            }
-            alert(json.message)
-            //Todo:成功
-        },
-        error: function () {
-            alert("请求失败")
-        }
+        success: success,
+        failed: failed
     })
 }
