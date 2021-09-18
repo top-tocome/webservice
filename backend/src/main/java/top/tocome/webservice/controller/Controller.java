@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import top.tocome.io.File;
 import top.tocome.webservice.Account.Session;
 import top.tocome.webservice.Account.UserSystem;
 import top.tocome.webservice.data.Error;
@@ -15,10 +16,19 @@ public class Controller {
 
     @PostMapping("/files")
     @CrossOrigin
-    public String files(String path) {
+    public String files(String type, String path, String session) {
+        if (type == null) {
+            return new ResponseData(Error.Failed).toJSONString();
+        }
         ResponseData data = new ResponseData();
-
-        data.put("files", FileAttribute.getAll(path));
+        switch (type) {
+            case "list":
+                data.put("files", FileAttribute.getAll(path));
+                break;
+            case "mkdir":
+                new File(path).mkdirs();
+                break;
+        }
 
         return data.toJSONString();
     }

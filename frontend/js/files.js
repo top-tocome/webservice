@@ -39,6 +39,7 @@ function showFiles(path) {
         type: "post",
         url: fileServer,
         data: {
+            type: "list",
             path: path
         },
         success: function (data) {
@@ -76,6 +77,35 @@ function showFiles(path) {
                             })
                     )
                 })
+        },
+        error: function () {
+            alert("请求失败")
+        }
+    })
+}
+
+/**
+ * 新建目录
+ * @param path 新目录路径
+ */
+function mkdir(path) {
+    $.ajax({
+        type: "post",
+        url: fileServer,
+        data: {
+            type: "mkdir",
+            path: path
+        },
+        success: function (data) {
+            console.log(data)
+            let json = JSON.parse(data)
+            if (json.code != 0) {
+                alert(json.message)
+                //Todo:失败
+                return;
+            }
+            alert(json.message)
+            //Todo:成功
         },
         error: function () {
             alert("请求失败")
