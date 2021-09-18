@@ -28,6 +28,11 @@ public class ResponseData {
         object.put("message", message);
     }
 
+    public ResponseData(Error error) {
+        object.put("code", error.getCode());
+        object.put("message", error.getMessage());
+    }
+
     /**
      * 新增要传输的数据
      *

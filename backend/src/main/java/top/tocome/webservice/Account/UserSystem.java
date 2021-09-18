@@ -2,6 +2,7 @@ package top.tocome.webservice.Account;
 
 import com.alibaba.fastjson.JSON;
 import top.tocome.io.File;
+import top.tocome.webservice.data.Error;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -23,16 +24,22 @@ public class UserSystem {
     /**
      * 所有已注册的用户
      */
-    public ArrayList<User> users = new ArrayList<>();
+    protected ArrayList<User> allUsers = new ArrayList<>();
 
     /**
      * 登录一个用户
      *
      * @return 登录结果
+     * @see Error
      */
-    public boolean login(String id, String pwd) {
+    public Error login(String id, String pwd) {
         User u = getUser(id);
-        return u != null && u.login(pwd);
+        if (u == null) return Error.NoSuchAccount;
+        if (!u.login(pwd)) return Error.PwdError;
+        if (u.session != null) return Error.LoginTwice;
+        u.session = newSession();
+        usersHasLogin.add(u);
+        return Error.Success;
     }
 
     /**
@@ -42,23 +49,21 @@ public class UserSystem {
      * @param pwd 新用户{@link User#pwd 密码}
      * @return 注册结果
      */
-    public boolean register(String id, String pwd) {
+    public Error register(String id, String pwd) {
         User u = getUser(id);
-        if (u == null) {
-            users.add(new User(id, pwd));
-            return true;
-        }
-        return false;
+        if (u != null) return Error.AccountExit;
+        allUsers.add(new User(id, pwd));
+        return Error.Success;
     }
 
     /**
-     * 获取一个已注册的用户
+     * 通过id获取一个已注册的用户
      *
      * @param id {@link User#id}
      * @return account or null
      */
     public User getUser(String id) {
-        for (User u : users) {
+        for (User u : allUsers) {
             if (u.id.equals(id)) return u;
         }
         return null;
@@ -73,31 +78,31 @@ public class UserSystem {
      * 保存用户信息到{@link #savePath}
      */
     public void saveUsers() {
-        File.write(savePath, JSON.toJSONBytes(users));
+        File.write(savePath, JSON.toJSONBytes(allUsers));
     }
 
     /**
      * 从{@link #savePath}中读取用户信息
      */
     public void loadUsers() {
-        users = (ArrayList<User>) JSON.parseArray(File.read(savePath), User.class);
+        allUsers = (ArrayList<User>) JSON.parseArray(File.read(savePath), User.class);
     }
 
     /**
-     * 当前有效的Session
+     * 当已登录的用户
      */
-    public ArrayList<Session> sessions = new ArrayList<>();
+    protected ArrayList<User> usersHasLogin = new ArrayList<>();
 
     /**
-     * 判断session是否有效
+     * 通过session获取一个已登录的用户
      *
      * @param session 前端传递过来的session
      */
-    public boolean isSessionValid(Session session) {
-        for (Session s : sessions) {
-            if (s.sameAs(session)) return true;
+    public User getUser(Session session) {
+        for (User u : usersHasLogin) {
+            if (u.session.sameAs(session)) return u;
         }
-        return false;
+        return null;
     }
 
     /**
@@ -106,13 +111,11 @@ public class UserSystem {
     public Session newSession() {
         StringBuilder sb = new StringBuilder();
         Random random = new Random();
-        for (int i = 0; i < 32; i++) {
+        for (int i = 0; i < 16; i++) {
             char c = (char) (random.nextInt(74) + 48);
             if ((c >= 91 && c <= 96) || (c >= 58 && c <= 64)) i--;
             else sb.append(c);
         }
-        Session session = new Session(sb.toString());
-        sessions.add(session);
-        return session;
+        return new Session(sb.toString());
     }
 }

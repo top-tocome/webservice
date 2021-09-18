@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.tocome.webservice.Account.UserSystem;
-import top.tocome.webservice.Account.Session;
+import top.tocome.webservice.data.Error;
 import top.tocome.webservice.data.ResponseData;
 import top.tocome.webservice.filemanager.FileAttribute;
 
@@ -24,13 +24,11 @@ public class Controller {
     @PostMapping("/login")
     @CrossOrigin
     public String login(String id, String pwd) {
-        ResponseData data = new ResponseData();
-
-        if (UserSystem.Instance.login(id, pwd)) {
-            Session session = UserSystem.Instance.newSession();
-            data.put("session", session);
-        } else data.put("code", -1).put("message", "登录失败");
-
+        Error error = UserSystem.Instance.login(id, pwd);
+        ResponseData data = new ResponseData(error);
+        if (error == Error.Success) {
+            data.put("session", UserSystem.Instance.getUser(id).session);
+        }
         return data.toJSONString();
     }
 }
