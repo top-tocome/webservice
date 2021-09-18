@@ -17,8 +17,7 @@ public class UserSystem {
     public static final UserSystem Instance = new UserSystem();
 
     private UserSystem() {
-        //默认用户
-        register("admin", "123456");
+        loadUsers();
     }
 
     /**
@@ -36,9 +35,8 @@ public class UserSystem {
         User u = getUser(id);
         if (u == null) return Error.NoSuchAccount;
         if (!u.login(pwd)) return Error.PwdError;
-        if (u.session != null) return Error.LoginTwice;
+        if (u.session == null) usersHasLogin.add(u);
         u.session = newSession();
-        usersHasLogin.add(u);
         return Error.Success;
     }
 
@@ -72,7 +70,7 @@ public class UserSystem {
     /**
      * 保存用户信息的文件
      */
-    String savePath = "accounts.json";
+    String savePath = "users.json";
 
     /**
      * 保存用户信息到{@link #savePath}
@@ -103,6 +101,17 @@ public class UserSystem {
             if (u.session.sameAs(session)) return u;
         }
         return null;
+    }
+
+    /**
+     * 退出登录
+     */
+    public Error loginOut(Session session) {
+        User u = getUser(session);
+        if (u == null) return Error.NotLogin;
+        u.session = null;
+        usersHasLogin.remove(u);
+        return Error.Success;
     }
 
     /**

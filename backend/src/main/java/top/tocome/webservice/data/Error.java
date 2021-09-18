@@ -5,10 +5,11 @@ package top.tocome.webservice.data;
  */
 public class Error {
     public static final Error Success = new Error(0, "ok");
+    public static final Error Failed = new Error(-1, "failed");
     public static final Error NoSuchAccount = new Error(-1, "账号不存在");
-    public static final Error LoginTwice = new Error(-1, "重复登录");
     public static final Error PwdError = new Error(-1, "密码错误");
     public static final Error AccountExit = new Error(-1, "账号已存在");
+    public static final Error NotLogin = new Error(-1, "未登录账号");
 
     public Error(int code, String message) {
         this.code = code;

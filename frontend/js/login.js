@@ -17,8 +17,9 @@ function login(id, pwd) {
         type: "post",
         url: loginServer,
         data: {
+            type: true,
             id: id,
-            pwd: pwd,
+            pwd: pwd
         },
         success: function (data) {
             console.log(data)
@@ -29,6 +30,36 @@ function login(id, pwd) {
                 return;
             }
             //Todo:登录成功
+            alert(json.message)
+            localStorage.setItem("session", JSON.stringify(json.session))
+        },
+        error: function () {
+            alert("请求失败")
+        }
+    })
+}
+
+/**
+ * 退出当前账号
+ */
+function loginOut() {
+    $.ajax({
+        type: "post",
+        url: loginServer,
+        data: {
+            type: false,
+            session: localStorage.getItem("session")
+        },
+        success: function (data) {
+            console.log(data)
+            let json = JSON.parse(data)
+            if (json.code != 0) {
+                alert(json.message)
+                //Todo:失败
+                return;
+            }
+            alert(json.message)
+            //Todo:成功
         },
         error: function () {
             alert("请求失败")
