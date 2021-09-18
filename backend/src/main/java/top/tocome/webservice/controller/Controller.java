@@ -43,4 +43,22 @@ public class Controller {
         }
         return data.toJSONString();
     }
+
+    @PostMapping("/about")
+    @CrossOrigin
+    public String about(String type, String content, String session) {
+        ResponseData data = new ResponseData();
+        switch (type) {
+            case "get":
+                data.put("content", File.read("about.txt"));
+                break;
+            case "modify":
+                File.write("about.txt", content.getBytes());
+                break;
+            default:
+                return new ResponseData(Error.Failed).toJSONString();
+        }
+
+        return data.toJSONString();
+    }
 }
