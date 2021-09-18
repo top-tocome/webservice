@@ -70,7 +70,7 @@ public class UserSystem {
     /**
      * 保存用户信息的文件
      */
-    String savePath = "users.json";
+    protected String savePath = "users.json";
 
     /**
      * 保存用户信息到{@link #savePath}
@@ -83,7 +83,8 @@ public class UserSystem {
      * 从{@link #savePath}中读取用户信息
      */
     public void loadUsers() {
-        allUsers = (ArrayList<User>) JSON.parseArray(File.read(savePath), User.class);
+        if (new File(savePath).exists())
+            allUsers = (ArrayList<User>) JSON.parseArray(File.read(savePath), User.class);
     }
 
     /**
