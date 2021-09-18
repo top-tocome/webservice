@@ -7,86 +7,86 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * 账号系统
+ * 用户系统
  */
-public class AccountSystem {
+public class UserSystem {
     /**
      * 系统单例
      */
-    public static final AccountSystem Instance = new AccountSystem();
+    public static final UserSystem Instance = new UserSystem();
 
-    private AccountSystem() {
-        //默认账号
-        register("Admin", "123456");
+    private UserSystem() {
+        //默认用户
+        register("admin", "123456");
     }
 
     /**
-     * 所有已注册的账号
+     * 所有已注册的用户
      */
-    protected ArrayList<Account> accounts = new ArrayList<>();
+    public ArrayList<User> users = new ArrayList<>();
 
     /**
-     * 登录一个账号
+     * 登录一个用户
      *
      * @return 登录结果
      */
     public boolean login(String id, String pwd) {
-        Account a = getAccount(id);
-        return a != null && a.login(pwd);
+        User u = getUser(id);
+        return u != null && u.login(pwd);
     }
 
     /**
-     * 注册一个账户，如果账户已存在则注册失败
+     * 注册一个用户，如果用户已存在则注册失败
      *
-     * @param id  新账户{@link Account#id id}
-     * @param pwd 新账户{@link Account#pwd 密码}
+     * @param id  新用户{@link User#id id}
+     * @param pwd 新用户{@link User#pwd 密码}
      * @return 注册结果
      */
     public boolean register(String id, String pwd) {
-        Account a = getAccount(id);
-        if (a == null) {
-            accounts.add(new Account(id, pwd));
+        User u = getUser(id);
+        if (u == null) {
+            users.add(new User(id, pwd));
             return true;
         }
         return false;
     }
 
     /**
-     * 获取一个已注册的账户
+     * 获取一个已注册的用户
      *
-     * @param id {@link Account#id}
+     * @param id {@link User#id}
      * @return account or null
      */
-    public Account getAccount(String id) {
-        for (Account a : accounts) {
-            if (a.getId().equals(id)) return a;
+    public User getUser(String id) {
+        for (User u : users) {
+            if (u.id.equals(id)) return u;
         }
         return null;
     }
 
     /**
-     * 保存账号信息的文件
+     * 保存用户信息的文件
      */
     String savePath = "accounts.json";
 
     /**
-     * 保存账号信息到{@link #savePath}
+     * 保存用户信息到{@link #savePath}
      */
-    public void saveAccounts() {
-        File.write(savePath, JSON.toJSONBytes(accounts));
+    public void saveUsers() {
+        File.write(savePath, JSON.toJSONBytes(users));
     }
 
     /**
-     * 从{@link #savePath}中读取账号信息
+     * 从{@link #savePath}中读取用户信息
      */
-    public void loadAccounts() {
-        accounts = (ArrayList<Account>) JSON.parseArray(File.read(savePath), Account.class);
+    public void loadUsers() {
+        users = (ArrayList<User>) JSON.parseArray(File.read(savePath), User.class);
     }
 
     /**
      * 当前有效的Session
      */
-    protected ArrayList<Session> sessions = new ArrayList<>();
+    public ArrayList<Session> sessions = new ArrayList<>();
 
     /**
      * 判断session是否有效

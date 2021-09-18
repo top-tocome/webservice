@@ -3,7 +3,7 @@ package top.tocome.webservice.controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.tocome.webservice.Account.AccountSystem;
+import top.tocome.webservice.Account.UserSystem;
 import top.tocome.webservice.Account.Session;
 import top.tocome.webservice.data.ResponseData;
 import top.tocome.webservice.filemanager.FileAttribute;
@@ -26,8 +26,8 @@ public class Controller {
     public String login(String id, String pwd) {
         ResponseData data = new ResponseData();
 
-        if (AccountSystem.Instance.login(id, pwd)) {
-            Session session = AccountSystem.Instance.newSession();
+        if (UserSystem.Instance.login(id, pwd)) {
+            Session session = UserSystem.Instance.newSession();
             data.put("session", session);
         } else data.put("code", -1).put("message", "登录失败");
 

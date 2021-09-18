@@ -15,20 +15,16 @@ public class Session {
     /**
      * session创建的时间
      */
-    protected Date creatDate;
+    public Date creatDate;
     /**
      * 区别其他session的唯一id
      */
-    protected String sessionId;
-
-    public String getSessionId() {
-        return sessionId;
-    }
+    public String sessionId;
 
     /**
      * 判断session是否相同
      */
     public boolean sameAs(Session session) {
-        return sessionId.equals(session.getSessionId());
+        return sessionId.equals(session.sessionId);
     }
 }
