@@ -16,11 +16,10 @@ public class ResponseData {
     protected JSONObject object = new JSONObject();
 
     /**
-     * 默认为成功状态
+     * 默认为失败状态
      */
     public ResponseData() {
-        object.put("code", 0);
-        object.put("message", "ok");
+        this(Error.Failed);
     }
 
     public ResponseData(int code, String message) {
@@ -29,8 +28,7 @@ public class ResponseData {
     }
 
     public ResponseData(Error error) {
-        object.put("code", error.getCode());
-        object.put("message", error.getMessage());
+        this(error.getCode(), error.getMessage());
     }
 
     /**
@@ -43,6 +41,14 @@ public class ResponseData {
     public ResponseData put(String key, Object value) {
         object.put(key, value);
         return this;
+    }
+
+    /**
+     * 更改错误消息
+     */
+    public void setError(Error error) {
+        object.put("code", error.getCode());
+        object.put("message", error.getMessage());
     }
 
     /**

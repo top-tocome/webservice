@@ -1,64 +1,47 @@
 package top.tocome.webservice.controller;
 
-import com.alibaba.fastjson.JSON;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.tocome.io.File;
-import top.tocome.webservice.Account.Session;
-import top.tocome.webservice.Account.UserSystem;
-import top.tocome.webservice.data.Error;
+import top.tocome.webservice.controller.pages.About;
+import top.tocome.webservice.controller.pages.FileManager;
+import top.tocome.webservice.controller.pages.Login;
 import top.tocome.webservice.data.ResponseData;
-import top.tocome.webservice.frontdata.FileAttribute;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class Controller {
 
     @PostMapping("/files")
     @CrossOrigin
-    public String files(String type, String path, String session) {
-        if (type == null) {
-            return new ResponseData(Error.Failed).toJSONString();
-        }
+    public String files(HttpServletRequest request) {
         ResponseData data = new ResponseData();
-        switch (type) {
-            case "list":
-                data.put("files", FileAttribute.getAll(path));
-                break;
-            case "mkdir":
-                new File(path).mkdirs();
-                break;
-        }
+        data.setError(FileManager.invoke(request, data));
+        return data.toJSONString();
+    }
 
+    @PostMapping("/upload")
+    @CrossOrigin
+    public String upload(HttpServletRequest request) {
+        ResponseData data = new ResponseData();
+        data.setError(FileManager.upload(request, data));
         return data.toJSONString();
     }
 
     @PostMapping("/login")
     @CrossOrigin
-    public String login(boolean type, String id, String pwd, String session) {
-        Error error = type ? UserSystem.Instance.login(id, pwd) : UserSystem.Instance.loginOut(JSON.parseObject(session, Session.class));
-        ResponseData data = new ResponseData(error);
-        if (type && error == Error.Success) {
-            data.put("session", UserSystem.Instance.getUser(id).session);
-        }
+    public String login(HttpServletRequest request) {
+        ResponseData data = new ResponseData();
+        data.setError(Login.invoke(request, data));
         return data.toJSONString();
     }
 
     @PostMapping("/about")
     @CrossOrigin
-    public String about(String type, String content, String session) {
+    public String about(HttpServletRequest request) {
         ResponseData data = new ResponseData();
-        switch (type) {
-            case "get":
-                data.put("content", File.read("about.txt"));
-                break;
-            case "modify":
-                File.write("about.txt", content.getBytes());
-                break;
-            default:
-                return new ResponseData(Error.Failed).toJSONString();
-        }
-
+        data.setError(About.invoke(request, data));
         return data.toJSONString();
     }
 }
