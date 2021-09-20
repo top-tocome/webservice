@@ -3,7 +3,7 @@ package top.tocome.webservice.controller.pages;
 import top.tocome.io.File;
 import top.tocome.webservice.data.Error;
 import top.tocome.webservice.data.ResponseData;
-import top.tocome.webservice.frontdata.FileAttribute;
+import top.tocome.webservice.data.FileAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 

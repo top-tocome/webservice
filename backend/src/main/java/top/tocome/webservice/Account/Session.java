@@ -9,15 +9,15 @@ public class Session {
 
     public Session(String sessionId) {
         this.sessionId = sessionId;
-        creatDate = new Date();
+        createDate = new Date();
     }
 
     /**
      * session创建的时间
      */
-    public Date creatDate;
+    protected Date createDate;
     /**
-     * 区别其他session的唯一id
+     * 随机生成的区别其他session的唯一id
      */
     public String sessionId;
 

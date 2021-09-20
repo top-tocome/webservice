@@ -1,6 +1,4 @@
-package top.tocome.webservice.backdata;
-
-import top.tocome.webservice.data.Config;
+package top.tocome.webservice.data;
 
 /**
  * 服务器配置
