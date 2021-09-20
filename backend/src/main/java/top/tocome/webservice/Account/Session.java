@@ -1,11 +1,16 @@
 package top.tocome.webservice.Account;
 
 import java.util.Date;
+import java.util.Random;
 
 /**
  * 自定义Session
  */
 public class Session {
+    /**
+     * {@link #sessionId}的长度
+     */
+    public static final int SessionIdLength = 16;
 
     public Session(String sessionId) {
         this.sessionId = sessionId;
@@ -26,5 +31,21 @@ public class Session {
      */
     public boolean sameAs(Session session) {
         return sessionId.equals(session.sessionId);
+    }
+
+    /**
+     * 随机创建一个新的session
+     *
+     * @param seed 随机数种子
+     */
+    public static Session newSession(int seed) {
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random(seed);
+        for (int i = 0; i < SessionIdLength; i++) {
+            char c = (char) (random.nextInt(74) + 48);
+            if ((c >= 91 && c <= 96) || (c >= 58 && c <= 64)) i--;
+            else sb.append(c);
+        }
+        return new Session(sb.toString());
     }
 }

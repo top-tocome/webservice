@@ -21,11 +21,7 @@ public class Login {
             case "true":
                 String id = request.getParameter("id");
                 String pwd = request.getParameter("pwd");
-                Error error = UserSystem.Instance.login(id, pwd);
-                if (error == Error.Success) {
-                    data.put("session", UserSystem.Instance.getUser(id).session);
-                }
-                return error;
+                return UserSystem.Instance.login(id, pwd, data);
 
             case "false":
                 String session = request.getParameter("session");
