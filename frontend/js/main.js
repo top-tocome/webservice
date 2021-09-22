@@ -20,10 +20,13 @@ function ajax({type, url, data}, success, failed) {
         dataType: "json",
         success: function (data) {
             console.log(data)
-            if (data.code == 0)
-                success(data)
-            else
-                failed(data)
+            if (data.code == 0) {
+                if (success == null) alert(data.message)
+                else success(data)
+            } else {
+                if (failed == null) alert(data.message)
+                else failed(data)
+            }
         },
         error: function () {
             alert("请求失败")
