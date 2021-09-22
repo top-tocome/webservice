@@ -15,18 +15,20 @@ public class Login {
 
     public static Error invoke(HttpServletRequest request, ResponseData data) {
         String type = request.getParameter("type");
-        String path = request.getParameter("path");
+        String id = request.getParameter("id");
+        String pwd = request.getParameter("pwd");
 
         switch (type) {
-            case "true":
-                String id = request.getParameter("id");
-                String pwd = request.getParameter("pwd");
+            case "login":
                 return UserSystem.Instance.login(id, pwd, data);
 
-            case "false":
+            case "loginOut":
                 String session = request.getParameter("session");
                 return UserSystem.Instance.loginOut(JSON.parseObject(session, Session.class));
 
+            case "register":
+                if (id != null && pwd != null)
+                    return UserSystem.Instance.register(id, pwd);
             default:
                 return Error.Failed;
         }

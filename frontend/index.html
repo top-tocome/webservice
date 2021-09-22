@@ -8,8 +8,19 @@
 </head>
 <body>
 <p>hello</p>
+<input type="file" multiple>
+<button>ok</button>
 </body>
 <script>
+    $("button").click(function () {
+        let files = $("input").prop("files");
+        console.log(files)
+        let data = new FormData()
+        for (let i = 0; i < files.length; i++) {
+            data.append(files[i].name, files[i])
+        }
+        fileUpload(data)
+    })
 
 </script>
 </html>

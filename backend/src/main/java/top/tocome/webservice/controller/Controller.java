@@ -3,6 +3,7 @@ package top.tocome.webservice.controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import top.tocome.webservice.controller.pages.About;
 import top.tocome.webservice.controller.pages.FileManager;
 import top.tocome.webservice.controller.pages.Login;
@@ -23,7 +24,7 @@ public class Controller {
 
     @PostMapping("/upload")
     @CrossOrigin
-    public String upload(HttpServletRequest request) {
+    public String upload(MultipartHttpServletRequest request) {
         ResponseData data = new ResponseData();
         data.setError(FileManager.upload(request, data));
         return data.toJSONString();
