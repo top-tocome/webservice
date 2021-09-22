@@ -38,9 +38,9 @@ public class Session {
      *
      * @param seed 随机数种子
      */
-    public static Session newSession(int seed) {
+    public static Session newSession() {
         StringBuilder sb = new StringBuilder();
-        Random random = new Random(seed);
+        Random random = new Random();
         for (int i = 0; i < SessionIdLength; i++) {
             char c = (char) (random.nextInt(74) + 48);
             if ((c >= 91 && c <= 96) || (c >= 58 && c <= 64)) i--;

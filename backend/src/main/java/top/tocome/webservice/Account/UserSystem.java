@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import top.tocome.io.File;
 import top.tocome.webservice.data.Error;
 import top.tocome.webservice.data.ResponseData;
+import top.tocome.webservice.data.ServerConfig;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,10 @@ public class UserSystem {
      * 所有已注册的用户
      */
     protected ArrayList<User> allUsers = new ArrayList<>();
+
+    public ArrayList<User> getAllUsers() {
+        return allUsers;
+    }
 
     /**
      * 通过id获取一个已注册的用户
@@ -102,7 +107,7 @@ public class UserSystem {
     /**
      * 保存用户信息的文件
      */
-    protected String savePath = "users.json";
+    protected String savePath = ServerConfig.Instance.dataPath + "users.json";
 
     /**
      * 保存用户信息到{@link #savePath}

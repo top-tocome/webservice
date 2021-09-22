@@ -10,6 +10,12 @@ public class User {
         this.pwd = pwd;
     }
 
+    public User(String id, String pwd, PermissionLevel level) {
+        this.id = id;
+        this.pwd = pwd;
+        this.level = level;
+    }
+
     /**
      * 用户id
      */
@@ -34,7 +40,7 @@ public class User {
      */
     public boolean login(String pwd) {
         if (this.pwd.equals(pwd)) {
-            session = Session.newSession(0);
+            session = Session.newSession();
             return true;
         }
         return false;
@@ -52,5 +58,12 @@ public class User {
      */
     public boolean isLogin() {
         return session != null;
+    }
+
+    /**
+     * 判断用户是否有level及以上权限级别
+     */
+    public boolean hasPermission(PermissionLevel level) {
+        return this.level.ordinal() <= level.ordinal();
     }
 }
