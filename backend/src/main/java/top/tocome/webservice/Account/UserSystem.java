@@ -2,9 +2,8 @@ package top.tocome.webservice.Account;
 
 import com.alibaba.fastjson.JSON;
 import top.tocome.io.File;
+import top.tocome.webservice.data.*;
 import top.tocome.webservice.data.Error;
-import top.tocome.webservice.data.ResponseData;
-import top.tocome.webservice.data.ServerConfig;
 
 import java.util.ArrayList;
 
@@ -37,6 +36,7 @@ public class UserSystem {
      * @return account or null
      */
     public User getUser(String id) {
+        if (id == null) return null;
         for (User u : allUsers) {
             if (u.id.equals(id)) return u;
         }
@@ -49,6 +49,7 @@ public class UserSystem {
      * @param session 前端传递过来的session
      */
     public User getUserBySession(Session session) {
+        if (session == null) return null;
         for (User u : allUsers) {
             if (u.isLogin() && u.session.sameAs(session)) return u;
         }
@@ -105,9 +106,23 @@ public class UserSystem {
     }
 
     /**
+     * 检查请求权限
+     *
+     * @param session 识别登录的账号
+     * @param level   需要的权限级别
+     */
+    public Error checkPerm(Session session, PermissionLevel level) {
+        User u = UserSystem.Instance.getUserBySession(session);
+        if (u == null) return Error.HasNotLogin;
+        if (!u.hasPermission(PermissionConfig.Instance.AboutModify))
+            return Error.NoPermission;
+        return Error.Success;
+    }
+
+    /**
      * 保存用户信息的文件
      */
-    protected String savePath = ServerConfig.Instance.dataPath + "users.json";
+    protected String savePath = Config.dataPath + "users.json";
 
     /**
      * 保存用户信息到{@link #savePath}
