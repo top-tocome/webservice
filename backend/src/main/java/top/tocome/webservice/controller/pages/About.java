@@ -21,26 +21,26 @@ public class About {
     public static Error invoke(HttpServletRequest request, ResponseData data) {
         String type = request.getParameter("type");
         logger.info(type);
+
         switch (type) {
             case "get":
-                if (new File(savePath).exists())
-                    data.put("content", File.read(savePath));
-                else return Error.NoData;
-                break;
+                if (!new File(savePath).exists()) return Error.NoData;
+                data.put("content", File.read(savePath));
+                return Error.Success;
 
             case "modify":
                 Session session = JSON.parseObject(request.getParameter("session"), Session.class);
-                Error error = UserSystem.Instance.checkPerm(session, PermissionConfig.Instance.AboutModify);
-                if (error != Error.Success) return error;
-                String content = request.getParameter("content");
-                if (content == null) return Error.Failed;
-                File.write(savePath, content.getBytes());
-                break;
+                return UserSystem.Instance.checkPermission(session, PermissionConfig.Instance.AboutModify,
+                        u -> {
+                            String content = request.getParameter("content");
+                            if (content == null) return Error.Failed;
+                            File.write(savePath, content.getBytes());
+                            return Error.Success;
+                        }
+                );
 
             default:
                 return Error.Failed;
         }
-
-        return Error.Success;
     }
 }

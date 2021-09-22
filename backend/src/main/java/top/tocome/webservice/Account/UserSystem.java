@@ -59,15 +59,13 @@ public class UserSystem {
     /**
      * 登录一个用户
      *
-     * @param data 用于添加新生成的session
      * @return {@link Error 登录结果}
      */
-    public Error login(String id, String pwd, ResponseData data) {
+    public Error login(String id, String pwd, Action action) {
         User u = getUser(id);
         if (u == null) return Error.NoSuchAccount;
         if (!u.login(pwd)) return Error.PwdError;
-        data.put("session", u.session);
-        return Error.Success;
+        return action.run(u);
     }
 
     /**
@@ -110,13 +108,14 @@ public class UserSystem {
      *
      * @param session 识别登录的账号
      * @param level   需要的权限级别
+     * @param action  权限识别通过时执行
      */
-    public Error checkPerm(Session session, PermissionLevel level) {
+    public Error checkPermission(Session session, PermissionLevel level, Action action) {
         User u = UserSystem.Instance.getUserBySession(session);
         if (u == null) return Error.HasNotLogin;
-        if (!u.hasPermission(PermissionConfig.Instance.AboutModify))
+        if (!u.hasPermission(level))
             return Error.NoPermission;
-        return Error.Success;
+        return action.run(u);
     }
 
     /**
@@ -137,5 +136,9 @@ public class UserSystem {
     public void loadUsers() {
         if (new File(savePath).exists())
             allUsers = (ArrayList<User>) JSON.parseArray(File.read(savePath), User.class);
+    }
+
+    public interface Action {
+        Error run(User u);
     }
 }

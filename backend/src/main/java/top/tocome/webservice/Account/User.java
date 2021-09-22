@@ -33,17 +33,17 @@ public class User {
      */
     protected Session session = null;
 
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
     /**
      * 登录该账号
      *
      * @return 登录结果
      */
     public boolean login(String pwd) {
-        if (this.pwd.equals(pwd)) {
-            session = Session.newSession();
-            return true;
-        }
-        return false;
+        return this.pwd.equals(pwd);
     }
 
     /**

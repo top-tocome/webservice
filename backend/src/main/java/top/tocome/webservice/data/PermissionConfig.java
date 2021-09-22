@@ -7,4 +7,5 @@ public class PermissionConfig {
 
 
     public PermissionLevel AboutModify = PermissionLevel.Admin;
+    public PermissionLevel Mkdir = PermissionLevel.Admin;
 }

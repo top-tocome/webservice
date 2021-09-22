@@ -27,15 +27,18 @@ public class FileManager {
         switch (type) {
             case "list":
                 data.put("files", FileAttribute.getAll(path));
-                break;
+                return Error.Success;
+
             case "mkdir":
-                new File(path).mkdirs();
-                break;
+                Session session = JSON.parseObject(request.getParameter("session"), Session.class);
+                return UserSystem.Instance.checkPermission(session, PermissionConfig.Instance.Mkdir,
+                        u -> {
+                            new File(path).mkdirs();
+                            return Error.Success;
+                        });
             default:
                 return Error.Failed;
         }
-
-        return Error.Success;
     }
 
     public static Error upload(MultipartHttpServletRequest request, ResponseData data) {

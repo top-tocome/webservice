@@ -23,7 +23,13 @@ public class Login {
 
         switch (type) {
             case "login":
-                return UserSystem.Instance.login(id, pwd, data);
+                return UserSystem.Instance.login(id, pwd,
+                        u -> {
+                            Session session = Session.newSession();
+                            u.setSession(session);
+                            data.put("session", session);
+                            return Error.Success;
+                        });
 
             case "loginOut":
                 Session session = JSON.parseObject(request.getParameter("session"), Session.class);
