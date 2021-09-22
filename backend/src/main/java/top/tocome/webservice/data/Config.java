@@ -3,8 +3,6 @@ package top.tocome.webservice.data;
 import org.yaml.snakeyaml.Yaml;
 import top.tocome.io.File;
 
-import java.util.ArrayList;
-
 /**
  * 配置文件
  */

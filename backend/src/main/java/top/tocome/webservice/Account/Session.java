@@ -20,7 +20,7 @@ public class Session {
     /**
      * session创建的时间
      */
-    protected Date createDate;
+    public Date createDate;
     /**
      * 随机生成的区别其他session的唯一id
      */

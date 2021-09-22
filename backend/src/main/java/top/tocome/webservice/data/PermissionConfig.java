@@ -8,4 +8,5 @@ public class PermissionConfig extends Config{
 
     public PermissionLevel AboutModify = PermissionLevel.Admin;
     public PermissionLevel Mkdir = PermissionLevel.Admin;
+    public PermissionLevel delete = PermissionLevel.Root;
 }

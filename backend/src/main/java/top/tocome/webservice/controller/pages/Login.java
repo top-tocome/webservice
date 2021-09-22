@@ -7,6 +7,7 @@ import top.tocome.webservice.Account.PermissionLevel;
 import top.tocome.webservice.Account.Session;
 import top.tocome.webservice.Account.UserSystem;
 import top.tocome.webservice.data.Error;
+import top.tocome.webservice.data.PermissionConfig;
 import top.tocome.webservice.data.ResponseData;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +31,7 @@ public class Login {
                             Session newSession = Session.newSession();
                             u.setSession(newSession);
                             data.put("session", newSession);
-                            UserSystem.logger.info("用户" + u.id + "登录成功\n" + "session" + JSON.toJSONString(newSession));
+                            logger.info("用户" + u.id + "登录成功\n" + "session" + JSON.toJSONString(newSession));
                             return Error.Success;
                         });
 
@@ -43,12 +44,8 @@ public class Login {
 
             case "delete":
                 if (id == null) return Error.Null;
-                return UserSystem.Instance.checkPermission(session, PermissionLevel.Visitor,
-                        u -> {
-                            if (u.id.equals(id) || u.hasPermission(PermissionLevel.Admin))
-                                return UserSystem.Instance.delete(id);
-                            return Error.NoPermission;
-                        });
+                return UserSystem.Instance.checkPermission(session, PermissionConfig.Instance.delete,
+                        u -> UserSystem.Instance.delete(id));
 
             default:
                 return Error.Failed;

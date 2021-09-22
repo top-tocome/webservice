@@ -31,7 +31,7 @@ public class User {
     /**
      * 用户的登录状态
      */
-    protected Session session = null;
+    public Session session = null;
 
     public void setSession(Session session) {
         this.session = session;
