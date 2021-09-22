@@ -9,10 +9,6 @@ import java.util.ArrayList;
  * 配置文件
  */
 public abstract class Config {
-    /**
-     * 自动保存的配置文件
-     */
-    public static final ArrayList<Config> autoSaveConfig = new ArrayList<>();
 
     /**
      * 数据文件保存位置
@@ -25,8 +21,6 @@ public abstract class Config {
     protected String savePath = dataPath + getClass().getSimpleName() + ".yml";
 
     public Config() {
-        load();
-        autoSaveConfig.add(this);
     }
 
     protected Yaml yaml = new Yaml();
