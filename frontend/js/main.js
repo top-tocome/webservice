@@ -145,7 +145,7 @@ function fileUpload(filesFormData, success, failed) {
     filesFormData.append("session", session)
     $.ajax({
         type: "post",
-        url: "/upload",
+        url: server + "/upload",
         data: filesFormData,
         dataType: "json",
         contentType: false,

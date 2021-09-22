@@ -2,7 +2,7 @@ package top.tocome.webservice.data;
 
 import top.tocome.webservice.Account.PermissionLevel;
 
-public class PermissionConfig {
+public class PermissionConfig extends Config{
     public static PermissionConfig Instance = new PermissionConfig();
 
 

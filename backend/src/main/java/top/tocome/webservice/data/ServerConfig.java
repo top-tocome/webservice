@@ -5,5 +5,6 @@ package top.tocome.webservice.data;
  */
 public class ServerConfig extends Config {
     public static ServerConfig Instance = new ServerConfig();
-
+    
+    public int a = 1;
 }
