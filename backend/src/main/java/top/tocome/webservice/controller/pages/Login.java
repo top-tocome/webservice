@@ -3,6 +3,7 @@ package top.tocome.webservice.controller.pages;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import top.tocome.webservice.Account.PermissionLevel;
 import top.tocome.webservice.Account.Session;
 import top.tocome.webservice.Account.UserSystem;
 import top.tocome.webservice.data.Error;
@@ -20,32 +21,36 @@ public class Login {
         String type = request.getParameter("type");
         String id = request.getParameter("id");
         String pwd = request.getParameter("pwd");
+        Session session = JSON.parseObject(request.getParameter("session"), Session.class);
 
         switch (type) {
             case "login":
                 return UserSystem.Instance.login(id, pwd,
                         u -> {
-                            Session session = Session.newSession();
-                            u.setSession(session);
-                            data.put("session", session);
+                            Session newSession = Session.newSession();
+                            u.setSession(newSession);
+                            data.put("session", newSession);
                             return Error.Success;
                         });
 
             case "loginOut":
-                Session session = JSON.parseObject(request.getParameter("session"), Session.class);
                 return UserSystem.Instance.loginOut(session);
 
             case "register":
-                if (id != null && pwd != null)
-                    return UserSystem.Instance.register(id, pwd);
-                break;
+                if (id == null || pwd == null) return Error.Null;
+                return UserSystem.Instance.register(id, pwd);
+
             case "delete":
-                if (id != null)
-                    return UserSystem.Instance.delete(id);
-                break;
+                if (id == null) return Error.Null;
+                return UserSystem.Instance.checkPermission(session, PermissionLevel.Visitor,
+                        u -> {
+                            if (u.id.equals(id) || u.hasPermission(PermissionLevel.Admin))
+                                return UserSystem.Instance.delete(id);
+                            return Error.NoPermission;
+                        });
+
             default:
                 return Error.Failed;
         }
-        return Error.Success;
     }
 }

@@ -87,6 +87,23 @@ function register(id, pwd, success, failed) {
 }
 
 /**
+ * 删除账号
+ */
+function deleteUser(id, success, failed) {
+    ajax({
+            type: "post",
+            url: "/login",
+            data: {
+                type: "delete",
+                id: id,
+                session: session
+            }
+        },
+        success, failed
+    )
+}
+
+/**
  * 请求目录下所有文件
  */
 function listFiles(path, success, failed) {
@@ -95,7 +112,8 @@ function listFiles(path, success, failed) {
             url: "/files",
             data: {
                 type: "list",
-                path: path
+                path: path,
+                session: session
             }
         },
         success, failed
@@ -111,7 +129,8 @@ function mkdir(path, success, failed) {
             url: "/files",
             data: {
                 type: "mkdir",
-                path: path
+                path: path,
+                session: session
             }
         },
         success,
@@ -123,6 +142,7 @@ function mkdir(path, success, failed) {
  * 文件上传
  */
 function fileUpload(filesFormData, success, failed) {
+    filesFormData.append("session", session)
     $.ajax({
         type: "post",
         url: "/upload",
@@ -152,7 +172,8 @@ function getAboutContent(success, failed) {
             type: "post",
             url: "/about",
             data: {
-                type: "get"
+                type: "get",
+                session: session
             }
         },
         success,
@@ -169,7 +190,8 @@ function modifyAbout(content, success, failed) {
             url: "/about",
             data: {
                 type: "modify",
-                content: content
+                content: content,
+                session: session
             }
         },
         success,

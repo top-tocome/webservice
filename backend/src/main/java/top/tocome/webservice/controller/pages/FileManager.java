@@ -1,6 +1,8 @@
 package top.tocome.webservice.controller.pages;
 
 import com.alibaba.fastjson.JSON;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import top.tocome.io.File;
@@ -19,6 +21,7 @@ import java.util.Map;
  * 文档管理页面
  */
 public class FileManager {
+    public static final Logger logger = LoggerFactory.getLogger("files");
 
     public static Error invoke(HttpServletRequest request, ResponseData data) {
         String type = request.getParameter("type");
