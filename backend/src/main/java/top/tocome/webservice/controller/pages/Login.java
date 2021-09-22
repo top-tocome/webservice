@@ -30,6 +30,7 @@ public class Login {
                             Session newSession = Session.newSession();
                             u.setSession(newSession);
                             data.put("session", newSession);
+                            UserSystem.logger.info("用户" + u.id + "登录成功\n" + "session" + JSON.toJSONString(newSession));
                             return Error.Success;
                         });
 

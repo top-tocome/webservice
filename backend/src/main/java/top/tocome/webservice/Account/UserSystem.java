@@ -1,6 +1,8 @@
 package top.tocome.webservice.Account;
 
 import com.alibaba.fastjson.JSON;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import top.tocome.io.File;
 import top.tocome.webservice.data.*;
 import top.tocome.webservice.data.Error;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
  * 用户系统
  */
 public class UserSystem {
+    public static final Logger logger = LoggerFactory.getLogger("user system");
     /**
      * 系统单例
      */
@@ -75,6 +78,7 @@ public class UserSystem {
         User u = getUserBySession(session);
         if (u == null) return Error.HasNotLogin;
         u.loginOut();
+        logger.info("用户" + u.id + "退出登录");
         return Error.Success;
     }
 
@@ -90,6 +94,7 @@ public class UserSystem {
         User u = getUser(id);
         if (u != null) return Error.AccountExit;
         allUsers.add(new User(id, pwd));
+        logger.info("用户" + id + "注册成功");
         return Error.Success;
     }
 
@@ -100,6 +105,7 @@ public class UserSystem {
         User u = getUser(id);
         if (u == null) return Error.NoSuchAccount;
         allUsers.remove(u);
+        logger.info("用户" + id + "删除成功");
         return Error.Success;
     }
 
