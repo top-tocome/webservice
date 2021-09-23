@@ -29,6 +29,12 @@ public class FileManager {
         switch (type) {
             case "list":
                 if (!file.isDirectory()) return Error.Failed;
+                try {
+                    path = file.getCanonicalPath();
+                    data.put("realPath", path);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 data.put("files", FileAttribute.getAll(path));
                 return Error.Success;
 

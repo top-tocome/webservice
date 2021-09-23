@@ -1,12 +1,6 @@
 <!--文件管理页面的js文件-->
 
 /**
- * 服务器文件的根路径
- * @type {string}
- */
-const rootPath = "."
-
-/**
  * 单个文件的展示块
  * @param directory 文件名/目录名
  * @param savetime 上次保存时间
@@ -31,16 +25,15 @@ function getFileBlock(directory, savetime, size, classname) {
 function showFiles(path) {
     listFiles(path,
         function (data) {
+            localStorage.setItem("path", data.realPath)
+            path = data.realPath;
+            console.log(path)
             $("#files").html(getFileBlock("directory", "savetime", "size"))
                 .append(
                     $(getFileBlock("..", "", "", "dir icon"))
                         .click(function () {
-                            if (path != rootPath) {
-                                path = path.substring(0, path.lastIndexOf("\\"));
-                                console.log(path)
-                                showFiles(path)
-                            }
-
+                            if (!path.endsWith(":\\"))
+                                showFiles(path + "/..")
                         })
                 )
 
@@ -59,8 +52,5 @@ function showFiles(path) {
                             })
                     )
                 })
-        },
-        function (data) {
-            alert(data.message)
         })
 }
