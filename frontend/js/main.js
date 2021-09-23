@@ -104,6 +104,22 @@ function deleteUser(id, success, failed) {
 }
 
 /**
+ * 检测登录状态
+ */
+function checkLoginState(success, failed) {
+    ajax({
+            type: "post",
+            url: "/login",
+            data: {
+                type: "check",
+                session: session
+            }
+        },
+        success, failed
+    )
+}
+
+/**
  * 请求目录下所有文件
  */
 function listFiles(path, success, failed) {
@@ -139,10 +155,29 @@ function mkdir(path, success, failed) {
 }
 
 /**
+ * 删除文件
+ */
+function deleteFiles(path, success, failed) {
+    ajax({
+            type: "post",
+            url: "/files",
+            data: {
+                type: "delete",
+                path: path,
+                session: session
+            }
+        },
+        success,
+        failed
+    )
+}
+
+/**
  * 文件上传
  */
-function fileUpload(filesFormData, success, failed) {
+function fileUpload(path, filesFormData, success, failed) {
     filesFormData.append("session", session)
+    filesFormData.append("path", path)
     $.ajax({
         type: "post",
         url: server + "/upload",
