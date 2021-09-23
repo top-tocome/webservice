@@ -6,9 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import top.tocome.io.Stream;
 import top.tocome.webservice.Account.UserSystem;
-import top.tocome.webservice.data.Config;
-import top.tocome.webservice.data.PermissionConfig;
-import top.tocome.webservice.data.ServerConfig;
 
 @SpringBootApplication
 public class BackendApplication {
@@ -40,13 +37,9 @@ public class BackendApplication {
 
     public static void load() {
         UserSystem.Instance.loadUsers();
-        ServerConfig.Instance.load();
-        PermissionConfig.Instance.load();
     }
 
     public static void save() {
         UserSystem.Instance.saveUsers();
-        ServerConfig.Instance.save();
-        PermissionConfig.Instance.save();
     }
 }

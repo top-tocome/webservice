@@ -7,7 +7,6 @@ import top.tocome.webservice.Account.PermissionLevel;
 import top.tocome.webservice.Account.Session;
 import top.tocome.webservice.Account.UserSystem;
 import top.tocome.webservice.data.Error;
-import top.tocome.webservice.data.PermissionConfig;
 import top.tocome.webservice.data.ResponseData;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,9 +43,11 @@ public class Login {
 
             case "delete":
                 if (id == null) return Error.Null;
-                return UserSystem.Instance.checkPermission(session, PermissionConfig.Instance.delete,
+                return UserSystem.Instance.checkPermission(session, PermissionLevel.Root,
                         u -> UserSystem.Instance.delete(id));
-
+            case "check":
+                if (UserSystem.Instance.getUserBySession(session) == null) return Error.LoginInvalid;
+                return Error.Success;
             default:
                 return Error.Failed;
         }

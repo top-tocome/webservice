@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import top.tocome.io.File;
+import top.tocome.webservice.Account.PermissionLevel;
 import top.tocome.webservice.Account.Session;
 import top.tocome.webservice.Account.UserSystem;
 import top.tocome.webservice.data.*;
@@ -30,10 +31,10 @@ public class About {
 
             case "modify":
                 Session session = JSON.parseObject(request.getParameter("session"), Session.class);
-                return UserSystem.Instance.checkPermission(session, PermissionConfig.Instance.AboutModify,
+                return UserSystem.Instance.checkPermission(session, PermissionLevel.Admin,
                         u -> {
                             String content = request.getParameter("content");
-                            if (content == null) return Error.Failed;
+                            if (content == null) return Error.Null;
                             File.write(savePath, content.getBytes());
                             return Error.Success;
                         }

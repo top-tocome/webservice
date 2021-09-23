@@ -1,6 +1,6 @@
 package top.tocome.webservice.data;
 
-import org.yaml.snakeyaml.Yaml;
+import com.alibaba.fastjson.JSON;
 import top.tocome.io.File;
 
 /**
@@ -16,12 +16,10 @@ public abstract class Config {
     /**
      * 配置文件保存路径
      */
-    protected String savePath = dataPath + getClass().getSimpleName() + ".yml";
+    protected String savePath = dataPath + getClass().getSimpleName() + ".json";
 
     public Config() {
     }
-
-    protected Yaml yaml = new Yaml();
 
     /**
      * 从文件加载数据
@@ -43,10 +41,10 @@ public abstract class Config {
     }
 
     protected String serializeToString() {
-        return yaml.dumpAsMap(this);
+        return JSON.toJSONString(this);
     }
 
     protected <T extends Config> T parseConfigObject(Class<T> tClass) {
-        return yaml.loadAs(File.read(savePath), tClass);
+        return JSON.parseObject(File.read(savePath), tClass);
     }
 }
