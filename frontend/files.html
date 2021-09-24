@@ -18,7 +18,10 @@
 </div>
 
 <script>
-    showFiles(".")
+    let path = localStorage.getItem("path")
+    if (path == null)
+        showFiles(".")
+    else showFiles(path)
 </script>
 </body>
 </html>

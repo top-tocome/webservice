@@ -2,10 +2,12 @@ package top.tocome.webservice.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import top.tocome.io.File;
 import top.tocome.webservice.controller.pages.About;
 import top.tocome.webservice.controller.pages.FileManager;
 import top.tocome.webservice.controller.pages.Login;
@@ -51,5 +53,14 @@ public class Controller {
         ResponseData data = new ResponseData();
         data.setError(About.invoke(request, data));
         return data.toJSONString();
+    }
+
+    @PostMapping(value = "/download",produces = {"application/text"})
+    @CrossOrigin
+    public FileSystemResource download(HttpServletRequest request) {
+        logger.info("new request:" + request.getRequestURI());
+        String path = request.getParameter("path");
+        logger.info(path);
+        return new FileSystemResource(new File(path));
     }
 }

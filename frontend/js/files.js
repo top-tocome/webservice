@@ -48,7 +48,8 @@ function showFiles(path) {
                                 console.log(file.path)
                                 if (file.isDirectory == true) {
                                     showFiles(file.path)
-                                }
+                                } else
+                                    downloadFile(file.path, file.name)
                             })
                     )
                 })

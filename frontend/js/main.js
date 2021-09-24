@@ -28,7 +28,8 @@ function ajax({type, url, data}, success, failed) {
                 else failed(data)
             }
         },
-        error: function () {
+        error: function (data) {
+            console.log(data)
             alert("请求失败")
         }
     })
@@ -187,17 +188,43 @@ function fileUpload(path, filesFormData, success, failed) {
         processData: false,
         success: function (data) {
             console.log(data)
-            if (json.code == 0)
-                success(data)
-            else
-                failed(data)
+            if (data.code == 0) {
+                if (success == null) alert(data.message)
+                else success(data)
+            } else {
+                if (failed == null) alert(data.message)
+                else failed(data)
+            }
         },
-        error: function () {
+        error: function (data) {
+            console.log(data)
             alert("请求失败")
         }
     })
 }
 
+/**
+ *下载文件
+ */
+function downloadFile(path, name) {
+    $.ajax({
+        type: "post",
+        url: server + "/download",
+        data: {
+            path: path
+        },
+        dataTypes: "blob",
+        success: function (data) {
+            console.log(data)
+            let url = window.URL.createObjectURL(new Blob([data]))
+            $(`<a></a>`).attr("href", url).attr("download", name)[0].click();
+        },
+        error: function (data) {
+            console.log(data)
+            alert("请求失败")
+        }
+    })
+}
 
 /**
  * 获取关于界面的内容
