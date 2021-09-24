@@ -4,23 +4,25 @@
     <meta charset="UTF-8">
     <title>index</title>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script src="./js/main.js"></script>
+    <link href="./css/index.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-<p>hello</p>
-<input type="file" multiple>
-<button>ok</button>
+<table class="table">
+    <tr>
+        <td width="100%" class="title font-center" height="0">SAIC 系列项目管理平台</td>
+    </tr>
+</table>
+<table width="100%" cellspacing="1" cellpadding="13" class="tabtop">
+    <tr>
+        <td width="30%" class="tablebg font-center " rowspan="2">
+            <a href="./tools.html" class="table-text">脚本类工具</a></td>
+        <td></td>
+        <td width="30%" class="tablebg font-center " rowspan="2">
+            <a href="./files.html" class="table-text">文档管理</a></td>
+        <td></td>
+        <td width="30%" class="tablebg font-center " rowspan="2">
+            <a href="./about.html" class="table-text">关于</a></td>
+    </tr>
+</table>
 </body>
-<script>
-    $("button").click(function () {
-        let files = $("input").prop("files");
-        console.log(files)
-        let data = new FormData()
-        for (let i = 0; i < files.length; i++) {
-            data.append(files[i].name, files[i])
-        }
-        fileUpload(data)
-    })
-
-</script>
 </html>

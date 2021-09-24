@@ -1,4 +1,58 @@
 
+.header {
+    background-color: #F1F1F1;
+    text-align: center;
+    padding: 20px;
+    font-family: 微软雅黑, serif;
+    font-size: 26px;
+    font-weight: bold;
+    border-bottom: 1px dashed #CCCCCC;
+    color: #255e95;
+}
+
+.head {
+    margin: 0;
+    font-size: 30px;
+    color: #aaa;
+}
+
+/* 导航条 */
+.topnav {
+    overflow: hidden;
+    background-color: #cfeff8;
+}
+
+/* 导航链接 */
+.topnav a {
+    float: left;
+    display: block;
+    color: #255e95;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* 链接 - 修改颜色 */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.box1 {
+    text-align: center;
+    margin-top: 50px;
+    float: left;
+    width: 50%;
+    height: 50px;
+}
+
+.box2 {
+    text-align: center;
+    margin-top: 50px;
+    float: right;
+    width: 50%;
+    height: 50px;
+}
 
 h1 {
     border-bottom: 1px solid #c0c0c0;
@@ -7,7 +61,48 @@ h1 {
     white-space: nowrap;
 }
 
-table {
+.overlay {
+    z-index: 99;
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #333;
+    opacity: 0.5;
+}
+
+.dropbox {
+    z-index: 100;
+    display: none;
+    position: fixed;
+    width: 500px;
+    height: 520px;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #fff;
+    border-radius: 6px;
+    transition-duration: 0.9s;
+    -webkit-transition-duration: 0.9s;
+    overflow: hidden;
+    text-align: center;
+}
+
+.items-container {
+    padding: 10px;
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.modal-box {
+    width: 100%;
     border-collapse: collapse;
 }
 
@@ -59,23 +154,50 @@ html[dir=rtl] a {
     display: none;
 }
 
-.content {
-    border: 0px;
+.modal-box-content {
+    border: 3px dashed gray;
     border-radius: 10px;
     margin: 10px 20px;
-    width: auto;
-    height: auto;
+    height: 400px;
+    overflow: auto;
+    padding: 2px 8px;
+
+}
+
+
+.content {
+    border: 1px solid #000;
+    border-radius: 10px;
+    width: 80%;
+    margin: auto;
+    height: 350px;
     overflow: auto;
     padding: 2px 8px;
 }
 
+#modal-box-content tr:first-child td {
+    border-top-width: 0;
+}
+
 #content tr:first-child td {
-    border-top-width: 0px;
+    border-top-width: 0;
+}
+
+#modal-box-content tr td:last-child {
+    cursor: pointer;
+    color: red;
 }
 
 #content tr td:last-child {
     cursor: pointer;
+}
 
+#modal-box-content tr td {
+    padding: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-top: 1px solid #9A9A9A;
 }
 
 #content tr td {
@@ -86,10 +208,72 @@ html[dir=rtl] a {
     border-top: 1px solid #9A9A9A;
 }
 
+#modal-box-content tr:hover {
+    background-color: #d5d5d5;
+}
+
 #content tr:hover {
     background-color: #d5d5d5;
+}
+
+#modal-box-content tr:active {
+    background-color: #9A9A9A;
 }
 
 #content tr:active {
     background-color: #9A9A9A;
 }
+
+
+.footer {
+    margin: 5px auto
+}
+
+.btn {
+    border-radius: 20px;
+    box-sizing: border-box;
+    border-width: 2px;
+    background-color: transparent;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 7px 18px
+}
+
+/*画一个叉号，表示推出界面*/
+.css-close {
+    display: inline-block;
+    width: 15px;
+    height: 2px;
+    background: #000;
+    font-size: 0;
+    line-height: 0;
+    vertical-align: middle;
+    -webkit-transform: rotate(45deg);
+}
+
+.css-close:after {
+    content: '.';
+    display: block;
+    width: 15px;
+    height: 2px;
+    background: #000;
+    -webkit-transform: rotate(90deg);
+}
+
+a:link {
+    color: blue;
+}
+
+a:visited {
+    color: blue;
+}
+
+a:hover {
+    color: blue;
+}
+
+a:active {
+    color: red;
+}
+
+
