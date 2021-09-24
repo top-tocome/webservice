@@ -1,43 +1,4 @@
 
-.header {
-    background-color: #F1F1F1;
-    text-align: center;
-    padding: 20px;
-    font-family: 微软雅黑, serif;
-    font-size: 26px;
-    font-weight: bold;
-    border-bottom: 1px dashed #CCCCCC;
-    color: #255e95;
-}
-
-.head {
-    margin: 0;
-    font-size: 30px;
-    color: #aaa;
-}
-
-/* 导航条 */
-.topnav {
-    overflow: hidden;
-    background-color: #cfeff8;
-}
-
-/* 导航链接 */
-.topnav a {
-    float: left;
-    display: block;
-    color: #255e95;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-/* 链接 - 修改颜色 */
-.topnav a:hover {
-    background-color: #ddd;
-    color: black;
-}
-
 .box1 {
     text-align: center;
     margin-top: 50px;
