@@ -1,5 +1,4 @@
-<!--定义全局量所有页面都要调用该js文件-->
-
+<!--api接口-->
 
 //---------------------api-------------------------
 
@@ -10,7 +9,7 @@ const server = "http://localhost:8000";
 /**
  *session
  */
-const session = localStorage.getItem("session");
+let session = localStorage.getItem("session");
 
 function ajax({type, url, data}, success, failed) {
     $.ajax({
