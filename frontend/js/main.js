@@ -7,7 +7,27 @@ $(document).ready(function () {
     <a href="./index.html">主页</a>
     <a href="./files.html">文档管理</a>
     <a href="./tools.html">脚本类工具</a>
-    <a href="./about.html">关于</a>
-    <a href="./login.html" class="right">登录</a>`)
+    <a href="./about.html">关于</a>`)
+
+        //检测登录和隐藏登录
+        if (session != null)
+            checkLoginState(function () {
+                $("div.navbar").append($(`<a href="#" class="right">已登录</a>`).click(
+                    function () {
+                        loginOut(function () {
+                            alert("退出登录成功")
+                            localStorage.removeItem("session")
+                        })
+                    }))
+            }, function (data) {
+                alert(data.message)
+                localStorage.removeItem("session")
+            })
+        else
+            $("#showLogin").click(function () {
+                $("div.navbar").append(`<a href="./login.html" class="right">登录</a>`)
+                $("#showLogin").remove()
+            })
+
     }
 )
