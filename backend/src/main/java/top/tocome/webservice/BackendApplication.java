@@ -7,7 +7,9 @@ import org.springframework.context.ConfigurableApplicationContext;
 import top.tocome.io.File;
 import top.tocome.io.Stream;
 import top.tocome.webservice.Account.UserSystem;
+import top.tocome.webservice.data.Article;
 import top.tocome.webservice.data.Config;
+import top.tocome.webservice.manager.ArticleManager;
 
 @SpringBootApplication
 public class BackendApplication {
@@ -39,10 +41,12 @@ public class BackendApplication {
 
     public static void load() {
         new File(Config.dataPath).mkdirs();
+        new File(Article.savePath).mkdirs();
         UserSystem.Instance.loadUsers();
     }
 
     public static void save() {
         UserSystem.Instance.saveUsers();
+        ArticleManager.Instance.saveArticles();
     }
 }
