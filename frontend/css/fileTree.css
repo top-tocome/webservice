@@ -13,8 +13,8 @@
 
 body {
     /*margin: 40px;*/
-    font: 1.2em/1.2 'Noto Sans', sans-serif;
-    background: linear-gradient(90deg, #b9c3c9, #6b7c87);
+    /*font: 1.2em/1.2 'Noto Sans', sans-serif;*/
+    /*background: linear-gradient(90deg, #b9c3c9, #6b7c87);*/
 }
 
 /*form {*/
@@ -50,6 +50,7 @@ form::before {
 }
 
 .tree {
+    font: 1.2em/1.2 'Noto Sans', sans-serif;
     padding: 20px 0;
 }
 

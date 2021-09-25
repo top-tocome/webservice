@@ -29,6 +29,7 @@
         <div class="articles">
 
         </div>
+        <p style="text-align: center">无数据</p>
     </div>
 </div>
 
@@ -37,5 +38,6 @@
 <script>
     $("div.articles").append($(card("标题1", "简介1"))).append($(card("标题2", "简介2")))
         .append($(card("标题3", "简介3"))).append($(card("标题4", "简介4")))
+        .next().text("加载更多")
 </script>
 </html>
