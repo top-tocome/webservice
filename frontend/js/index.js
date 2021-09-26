@@ -10,7 +10,6 @@ function card(title, desc, url) {
                 <div class="back">
                     <div>
                         <p>${desc}</p>
-                        <button class="button">查看详情</button>
                     </div>
                 </div>
             </a>`

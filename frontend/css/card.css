@@ -151,52 +151,52 @@
     transform: rotateY(0deg);
 }
 
-.button {
-    transform: translateZ(40px);
-    cursor: pointer;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    font-weight: bold;
-    color: #fff;
-    padding: .5em 1em;
-    border-radius: 100px;
-    background: linear-gradient(135deg, #1a9be6, #1a57e6);
-    border: none;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: 300ms ease;
-}
+/*.button {*/
+/*    transform: translateZ(40px);*/
+/*    cursor: pointer;*/
+/*    -webkit-backface-visibility: hidden;*/
+/*    backface-visibility: hidden;*/
+/*    font-weight: bold;*/
+/*    color: #fff;*/
+/*    padding: .5em 1em;*/
+/*    border-radius: 100px;*/
+/*    background: linear-gradient(135deg, #1a9be6, #1a57e6);*/
+/*    border: none;*/
+/*    position: relative;*/
+/*    transform-style: preserve-3d;*/
+/*    transition: 300ms ease;*/
+/*}*/
 
-.button:before {
-    transition: 300ms ease;
-    position: absolute;
-    display: block;
-    content: '';
-    transform: translateZ(-40px);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    height: calc(100% - 20px);
-    width: calc(100% - 20px);
-    border-radius: 100px;
-    left: 10px;
-    top: 16px;
-    box-shadow: 0 0 10px 10px rgba(26, 87, 230, 0.25);
-    background-color: rgba(26, 87, 230, 0.25);
-}
+/*.button:before {*/
+/*    transition: 300ms ease;*/
+/*    position: absolute;*/
+/*    display: block;*/
+/*    content: '';*/
+/*    transform: translateZ(-40px);*/
+/*    -webkit-backface-visibility: hidden;*/
+/*    backface-visibility: hidden;*/
+/*    height: calc(100% - 20px);*/
+/*    width: calc(100% - 20px);*/
+/*    border-radius: 100px;*/
+/*    left: 10px;*/
+/*    top: 16px;*/
+/*    box-shadow: 0 0 10px 10px rgba(26, 87, 230, 0.25);*/
+/*    background-color: rgba(26, 87, 230, 0.25);*/
+/*}*/
 
-.button:hover {
-    transform: translateZ(55px);
-}
+/*.button:hover {*/
+/*    transform: translateZ(55px);*/
+/*}*/
 
-.button:hover:before {
-    transform: translateZ(-55px);
-}
+/*.button:hover:before {*/
+/*    transform: translateZ(-55px);*/
+/*}*/
 
-.button:active {
-    transform: translateZ(20px);
-}
+/*.button:active {*/
+/*    transform: translateZ(20px);*/
+/*}*/
 
-.button:active:before {
-    transform: translateZ(-20px);
-    top: 12px;
-}
+/*.button:active:before {*/
+/*    transform: translateZ(-20px);*/
+/*    top: 12px;*/
+/*}*/
