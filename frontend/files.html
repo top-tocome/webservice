@@ -47,9 +47,12 @@
 </body>
 
 <script>
+    let path = localStorage.getItem("path")
+    if (path == null) path = "."
+
     $("#rootPath").click(function () {
-        showFiles("/", "rootPath")
-    })
+        showFiles(path, "rootPath")
+    }).next().text(path)
 </script>
 
 </html>

@@ -15,10 +15,10 @@ function getFileBlock(name, id) {
  * 请求数据更新文件并展示
  */
 function showFiles(path, dirId) {
+    $("h1.treePath").text(path)
     if ($("#" + dirId).siblings("div.sub").html() == "")
         listFiles(path, function (data) {
             path = data.realPath;
-            $("h1.treePath").text(path)
             let i = 0
             data.files.forEach(
                 file => {

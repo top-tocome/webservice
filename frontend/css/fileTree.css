@@ -1,7 +1,7 @@
 /*https://www.jq22.com/code4158*/
 
 @import url("//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
-@import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,700);
+/*@import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,700);*/
 
 /**, *::before, *::after {*/
 /*    box-sizing: border-box;*/
@@ -11,11 +11,11 @@
 /*    min-height: 100%;*/
 /*}*/
 
-body {
-    /*margin: 40px;*/
-    /*font: 1.2em/1.2 'Noto Sans', sans-serif;*/
-    /*background: linear-gradient(90deg, #b9c3c9, #6b7c87);*/
-}
+/*body {*/
+/*    margin: 40px;*/
+/*    font: 1.2em/1.2 'Noto Sans', sans-serif;*/
+/*    background: linear-gradient(90deg, #b9c3c9, #6b7c87);*/
+/*}*/
 
 /*form {*/
 /*    position: relative;*/
@@ -64,12 +64,12 @@ form::before {
     clear: left;
 }
 
-input[type="checkbox"] {
+.tree input[type="checkbox"] {
     position: absolute;
     left: -9999px;
 }
 
-label, .sub a {
+.tree label, .tree .sub a {
     display: block;
     float: left;
     clear: left;
@@ -82,7 +82,7 @@ label, .sub a {
     cursor: pointer;
 }
 
-label::before, a::before {
+.tree label::before, .tree a::before {
     display: block;
     position: absolute;
     top: 6px;
@@ -90,30 +90,30 @@ label::before, a::before {
     font-family: 'FontAwesome', serif;
 }
 
-label::before {
+.tree label::before {
     content: '\f07b'; /* closed folder */
 }
 
-input:checked + label::before {
+.tree input:checked + label::before {
     content: '\f07c'; /* open folder */
 }
 
-a::before {
+.tree a::before {
     content: '\f068'; /* dash */
 }
 
-input:focus + label, a:focus {
+.tree input:focus + label, .tree a:focus {
     outline: none;
     background-color: #b9c3c9;
 }
 
-.sub {
+.tree .sub {
     display: none;
     float: left;
     margin-left: 30px;
 }
 
-input:checked ~ .sub {
+.tree input:checked ~ .sub {
     display: block;
 }
 
