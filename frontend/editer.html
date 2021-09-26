@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>文章编辑</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/showdown/1.9.1/showdown.min.js"></script>
+    <link href="./css/main.css" type="text/css" rel="stylesheet">
+    <script src="./js/api.js"></script>
+</head>
+<style>
+
+</style>
+<body>
+
+<div class="header">
+
+</div>
+
+
+<div class="row">
+    <div class="side">
+        <label>
+            <textarea style="width: 100%;height: 400px"></textarea>
+        </label>
+    </div>
+
+    <div class="main">
+        <div id="show"></div>
+    </div>
+</div>
+
+<div class="footer">
+    <button id="save">保存</button>
+</div>
+</body>
+<script>
+    let MDShader = new showdown.Converter();
+    $("textarea").keydown(function () {
+        $("#show").html(MDShader.makeHtml($("textarea").val()))
+    })
+    $("#save").click(function () {
+        newArticle("1", "2", $("textarea").val())
+    })
+</script>
+</html>

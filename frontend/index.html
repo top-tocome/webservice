@@ -29,15 +29,36 @@
         <div class="articles">
 
         </div>
-        <p style="text-align: center">无数据</p>
+        <p id="loadMore" style="text-align: center">无数据</p>
     </div>
 </div>
 
 </body>
 
 <script>
-    $("div.articles").append($(card("标题1", "简介1"))).append($(card("标题2", "简介2")))
-        .append($(card("标题3", "简介3"))).append($(card("标题4", "简介4")))
-        .next().text("加载更多")
+    !(function () {
+        let page = 1
+        getArticle(1, 5, function (data) {
+            data.articles.forEach(article => {
+                $("div.articles").append($(card(article.title, article.desc)))
+                $("#loadMore").text("加载更多")
+            })
+            page++
+        })
+        $("#loadMore").click(function () {
+                $("#loadMore").text("加载中")
+                getArticle(page, 5, function (data) {
+                    data.articles.forEach(article => {
+                        $("div.articles").append($(card(article.title, article.desc)))
+                        $("#loadMore").text("加载更多")
+                    })
+                    page++
+                }, function () {
+                    $("#loadMore").text("无更多数据")
+                    $("#loadMore").remove()
+                })
+            }
+        )
+    })()
 </script>
 </html>

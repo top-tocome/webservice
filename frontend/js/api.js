@@ -260,4 +260,39 @@ function modifyAbout(content, success, failed) {
     )
 }
 
+//新文章
+function newArticle(title, desc, content, success, failed) {
+    ajax({
+            type: "post",
+            url: "/articles",
+            data: {
+                type: "new",
+                title: title,
+                desc: desc,
+                content: content,
+                session: session
+            }
+        },
+        success,
+        failed
+    )
+}
+
+//获取文章
+function getArticle(page, num, success, failed) {
+    ajax({
+            type: "post",
+            url: "/articles",
+            data: {
+                type: "list",
+                page: page,
+                num: num,
+                session: session
+            }
+        },
+        success,
+        failed
+    )
+}
+
 //---------------------api-------------------------
