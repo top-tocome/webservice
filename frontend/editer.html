@@ -46,6 +46,8 @@
 </body>
 <script>
     let MDShader = new showdown.Converter();
+    if (localStorage.getItem("articleId") == null) $("#modify").remove()
+    else $("#save").remove()
 
     getArticleById(localStorage.getItem("articleId"),
         function (data) {
@@ -53,12 +55,15 @@
             $("#desc").val(data.article.desc)
             $("#content").val(data.content)
             $("div.main").html(MDShader.makeHtml(data.content))
+        }, function () {
+            let draft = JSON.parse(localStorage.getItem("draft"))
+            $("#title").val(draft.title)
+            $("#desc").val(draft.desc)
+            $("#content").val(draft.content)
+            $("textarea").keydown(function () {
+                $("#show").html(MDShader.makeHtml($("textarea").val()))
+            })
         })
-
-
-    $("textarea").keydown(function () {
-        $("#show").html(MDShader.makeHtml($("textarea").val()))
-    })
 
     $("#saveDraft").click(function () {
         let article = {

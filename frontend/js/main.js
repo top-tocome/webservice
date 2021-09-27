@@ -19,10 +19,14 @@ $(document).ready(function () {
                                 localStorage.removeItem("session")
                                 window.location.reload()
                             })
-                        })).append(`<a href="./editer.html" class="right">新文章</a>`)
+                        })).append(
+                        $(`<a href="./editer.html" class="right">新文章</a>`).click(function () {
+                            localStorage.removeItem("articleId")
+                        }))
                 }, function (data) {
                     alert(data.message)
                     localStorage.removeItem("session")
+                    window.location.reload()
                 })
             } else {
                 $("div.navbar").append(`<a href="./login.html" class="right">登录</a>`)
