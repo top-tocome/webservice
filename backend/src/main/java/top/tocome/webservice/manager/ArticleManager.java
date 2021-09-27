@@ -24,19 +24,21 @@ public class ArticleManager {
         Article article = new Article(title, desc, articles.size() + ".md");
         article.save(content);
         articles.add(article);
+        saveArticles();
     }
 
     public List<Article> getArticles(int page, int num) {
+        System.out.println(JSON.toJSONString(articles));
         if (page > 0 && num > 0) {
             int size = articles.size();
-            int start = (page - 1) * num;
+            int start = size - page * num;
             int end = start + num;
-            if (end <= size) {
+            if (start > 0) {
                 return articles.subList(start, end);
-            } else if (start < size)
-                return articles.subList(start, size);
-            else if (start > size)
+            } else if (end < 0)
                 return null;
+            else if (start < 0)
+                return articles.subList(0, end);
         }
         return null;
     }

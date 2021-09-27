@@ -38,27 +38,20 @@
 <script>
     !(function () {
         let page = 1
-        getArticle(1, 5, function (data) {
-            data.articles.forEach(article => {
-                $("div.articles").append($(card(article.title, article.desc)))
-                $("#loadMore").text("加载更多")
-            })
-            page++
-        })
         $("#loadMore").click(function () {
-                $("#loadMore").text("加载中")
-                getArticle(page, 5, function (data) {
-                    data.articles.forEach(article => {
-                        $("div.articles").append($(card(article.title, article.desc)))
-                        $("#loadMore").text("加载更多")
-                    })
-                    page++
-                }, function () {
-                    $("#loadMore").text("无更多数据")
-                    $("#loadMore").remove()
-                })
-            }
-        )
+            $("#loadMore").text("加载中")
+            getArticle(page, 5, function (data) {
+                let articles = data.articles;
+                for (let i = articles.length - 1; i >= 0; i--) {
+                    let article = articles[i];
+                    $("div.articles").append($(card(article.title, article.desc, new Date(article.createDate).toString())))
+                }
+                $("#loadMore").text("加载更多")
+                page++
+            }, function () {
+                $("#loadMore").text("无更多数据").unbind("click")
+            })
+        })
     })()
 </script>
 </html>
