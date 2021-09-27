@@ -28,17 +28,15 @@ public class ArticleManager {
     }
 
     public List<Article> getArticles(int page, int num) {
-        System.out.println(JSON.toJSONString(articles));
         if (page > 0 && num > 0) {
             int size = articles.size();
             int start = size - page * num;
             int end = start + num;
-            if (start > 0) {
+            if (start >= 0) {
                 return articles.subList(start, end);
             } else if (end < 0)
                 return null;
-            else if (start < 0)
-                return articles.subList(0, end);
+            else return articles.subList(0, end);
         }
         return null;
     }
