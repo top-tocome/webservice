@@ -21,7 +21,7 @@ public class ArticleManager {
     protected ArrayList<Article> articles = new ArrayList<>();
 
     public void newArticle(String title, String desc, String content) {
-        Article article = new Article(title, desc, articles.size() + ".md");
+        Article article = new Article(title, desc, title);
         article.save(content);
         articles.add(article);
         saveArticles();
@@ -39,6 +39,13 @@ public class ArticleManager {
                 return null;
             else if (start < 0)
                 return articles.subList(0, end);
+        }
+        return null;
+    }
+
+    public Article getArticleById(String id) {
+        for (Article a : articles) {
+            if (a.id.equals(id)) return a;
         }
         return null;
     }

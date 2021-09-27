@@ -7,18 +7,14 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/showdown/1.9.1/showdown.min.js"></script>
     <link href="./css/main.css" type="text/css" rel="stylesheet">
-    <script src="./js/main.js"></script>
     <script src="./js/api.js"></script>
 </head>
 <body>
 
 <div class="header">
-    <h1>标题</h1>
-    <p>副标题</p>
-</div>
-
-<div class="navbar">
-
+    <h1 id="title">标题</h1>
+    <p id="desc">描述</p>
+    <p id="time">发布时间</p>
 </div>
 
 <div class="row">
@@ -30,13 +26,14 @@
 </body>
 <script>
     let MDShader = new showdown.Converter();
-    $.ajax(
-        {
-            url: "../README.md",
-            success: function (data) {
-                $("div.main").append(MDShader.makeHtml(data))
-            }
-        }
-    )
+    getArticleById(localStorage.getItem("articleId"),
+        function (data) {
+            $("title").text(data.article.title)
+            $("#title").text(data.article.title)
+            $("#desc").text(data.article.desc)
+            $("#time").text("发布时间:  " + new Date(data.article.createDate).toString())
+            $("div.main").html(MDShader.makeHtml(data.content))
+        })
+
 </script>
 </html>

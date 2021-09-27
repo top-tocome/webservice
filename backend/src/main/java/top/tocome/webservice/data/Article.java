@@ -1,6 +1,7 @@
 package top.tocome.webservice.data;
 
 import top.tocome.io.File;
+import top.tocome.webservice.Account.Session;
 
 import java.util.Date;
 
@@ -15,12 +16,14 @@ public class Article {
     }
 
     public Article(String title, String desc, String name) {
+        id = Session.RandomString(8);
         this.title = title;
         this.desc = desc;
         createDate = new Date();
         this.name = name;
     }
 
+    public String id;
     /**
      * 标题
      */
@@ -43,11 +46,17 @@ public class Article {
     public String name;
 
     public void save(String content) {
-        File.write(savePath + name, content.getBytes());
+        String path = savePath + name + ".md";
+        if (new File(path).exists()) {
+            name = name + "-r";
+            save(content);
+            return;
+        }
+        File.write(path, content.getBytes());
         lastModify = new Date();
     }
 
     public String read() {
-        return File.read(savePath + name);
+        return File.read(savePath + name + ".md");
     }
 }

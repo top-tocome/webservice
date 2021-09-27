@@ -15,14 +15,21 @@
 <body>
 
 <div class="header">
-
+    <label>标题：
+        <input id="title" type="text">
+    </label>
+    <br>
+    <br>
+    <label>简介：
+        <input id="desc" type="text" style="width: 400px">
+    </label>
 </div>
 
 
 <div class="row">
     <div class="side">
         <label>
-            <textarea style="width: 100%;height: 400px"></textarea>
+            <textarea id="content" style="width: 100%;height: 400px"></textarea>
         </label>
     </div>
 
@@ -41,7 +48,11 @@
         $("#show").html(MDShader.makeHtml($("textarea").val()))
     })
     $("#save").click(function () {
-        newArticle("1", "2", $("textarea").val())
+        let title = $("#title").val()
+        let desc = $("#desc").val()
+        let content = $("#content").val()
+        if (title == "" || desc == "" || content == "") alert("标题，简介或内容为空")
+        else newArticle(title, desc, content)
     })
 </script>
 </html>

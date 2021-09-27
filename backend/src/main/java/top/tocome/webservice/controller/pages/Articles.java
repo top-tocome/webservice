@@ -1,5 +1,9 @@
 package top.tocome.webservice.controller.pages;
 
+import com.alibaba.fastjson.JSON;
+import top.tocome.webservice.Account.PermissionLevel;
+import top.tocome.webservice.Account.Session;
+import top.tocome.webservice.Account.UserSystem;
 import top.tocome.webservice.data.Article;
 import top.tocome.webservice.data.Error;
 import top.tocome.webservice.data.ResponseData;
@@ -35,8 +39,20 @@ public class Articles {
                 String desc = request.getParameter("desc");
                 String content = request.getParameter("content");
                 if (title == null || desc == null || content == null) return Error.Null;
-                ArticleManager.Instance.newArticle(title, desc, content);
+                Session session = JSON.parseObject(request.getParameter("session"), Session.class);
+                return UserSystem.Instance.checkPermission(session, PermissionLevel.Admin, u -> {
+                    ArticleManager.Instance.newArticle(title, desc, content);
+                    return Error.Success;
+                });
+            case "content":
+
+                String id = request.getParameter("id");
+                Article article = ArticleManager.Instance.getArticleById(id);
+                if (article == null) return Error.Failed;
+                data.put("article", article);
+                data.put("content", article.read());
                 return Error.Success;
+
             case "modify":
 
             case "delete":

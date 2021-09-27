@@ -29,7 +29,7 @@
         <div class="articles">
 
         </div>
-        <p id="loadMore" style="text-align: center">无数据</p>
+        <p id="loadMore" style="text-align: center">点击加载数据</p>
     </div>
 </div>
 
@@ -44,7 +44,12 @@
                 let articles = data.articles;
                 for (let i = articles.length - 1; i >= 0; i--) {
                     let article = articles[i];
-                    $("div.articles").append($(card(article.title, article.desc, new Date(article.createDate).toString())))
+                    $("div.articles").append(
+                        $(card(article.title, article.desc, new Date(article.createDate).toString()))
+                            .click(function () {
+                                localStorage.setItem("articleId", article.id)
+                            })
+                    )
                 }
                 $("#loadMore").text("加载更多")
                 page++

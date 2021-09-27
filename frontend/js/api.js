@@ -295,4 +295,19 @@ function getArticle(page, num, success, failed) {
     )
 }
 
+//获取文章内容
+function getArticleById(id, success, failed) {
+    ajax({
+            type: "post",
+            url: "/articles",
+            data: {
+                type: "content",
+                id: id
+            }
+        },
+        success,
+        failed
+    )
+}
+
 //---------------------api-------------------------

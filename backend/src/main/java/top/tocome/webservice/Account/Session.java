@@ -40,13 +40,17 @@ public class Session {
      * 随机创建一个新的session
      */
     public static Session newSession() {
+        return new Session(RandomString(SessionIdLength));
+    }
+
+    public static String RandomString(int length) {
         StringBuilder sb = new StringBuilder();
         Random random = new Random();
-        for (int i = 0; i < SessionIdLength; i++) {
+        for (int i = 0; i < length; i++) {
             char c = (char) (random.nextInt(74) + 48);
             if ((c >= 91 && c <= 96) || (c >= 58 && c <= 64)) i--;
             else sb.append(c);
         }
-        return new Session(sb.toString());
+        return sb.toString();
     }
 }
