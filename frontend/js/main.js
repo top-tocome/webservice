@@ -12,11 +12,12 @@ $(document).ready(function () {
             //检测登录和隐藏登录
             if (session != null) {
                 checkLoginState(function () {
-                    $("div.navbar").append($(`<a href="#" class="right">退出登录</a>`).click(
+                    $("div.navbar").append($(`<a href="#!" class="right">退出登录</a>`).click(
                         function () {
                             loginOut(function () {
                                 alert("退出登录成功")
                                 localStorage.removeItem("session")
+                                window.location.reload()
                             })
                         })).append(`<a href="./editer.html" class="right">新文章</a>`)
                 }, function (data) {
@@ -25,8 +26,8 @@ $(document).ready(function () {
                 })
             } else {
                 $("div.navbar").append(`<a href="./login.html" class="right">登录</a>`)
-                $("#showLogin").remove()
             }
+            $("#showLogin").remove()
         })
 
     }

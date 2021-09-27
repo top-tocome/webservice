@@ -15,7 +15,7 @@ function getFileBlock(name, id) {
  * 请求数据更新文件并展示
  */
 function showFiles(path, dirId) {
-    $("h1.treePath").text(path)
+    $("h1.treePath").text("当前目录: " + path)
     if ($("#" + dirId).siblings("div.sub").html() == "")
         listFiles(path, function (data) {
             path = data.realPath;
@@ -32,7 +32,7 @@ function showFiles(path, dirId) {
                         i++;
                     } else
                         $("#" + dirId).siblings("div.sub").append(
-                            $(`<a href="#">${file.name}</a>`).click(
+                            $(`<a href="#!">${file.name}</a>`).click(
                                 function () {
                                     downloadFile(file.path, file.name)
                                 }))
