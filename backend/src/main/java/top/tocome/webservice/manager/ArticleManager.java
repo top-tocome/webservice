@@ -55,16 +55,15 @@ public class ArticleManager {
         article.title = title;
         article.desc = desc;
         article.modify(content);
+        saveArticles();
         return Error.Success;
     }
 
     public boolean deleteArticle(String id) {
         Article article = getArticleById(id);
-        return articles.remove(article);
-    }
-
-    public void deleteArticle(Article article) {
-        articles.remove(article);
+        boolean b = articles.remove(article);
+        saveArticles();
+        return b;
     }
 
     public void saveArticles() {

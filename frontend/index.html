@@ -7,7 +7,6 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <link href="./css/main.css" type="text/css" rel="stylesheet">
     <link href="./css/card.css" type="text/css" rel="stylesheet">
-    <script src="./js/main.js"></script>
     <script src="./js/index.js"></script>
     <script src="./js/api.js"></script>
 </head>
@@ -18,7 +17,9 @@
 </div>
 
 <div class="navbar">
-
+    <a href="#!">主页</a>
+    <a href="./files.html">文档管理</a>
+    <a href="./tools.html">脚本类工具</a>
 </div>
 
 <div class="row">
@@ -56,5 +57,31 @@
             })
         })
     })()
+
+    $("#showLogin").click(function () {
+        //检测登录和隐藏登录
+        if (session != null) {
+            checkLoginState(function () {
+                $("div.navbar").append($(`<a href="#!" class="right">退出登录</a>`).click(
+                    function () {
+                        loginOut(function () {
+                            alert("退出登录成功")
+                            localStorage.removeItem("session")
+                            window.location.reload()
+                        })
+                    })).append(
+                    $(`<a href="./editer.html" class="right">新文章</a>`).click(function () {
+                        localStorage.removeItem("articleId")
+                    }))
+            }, function (data) {
+                alert(data.message)
+                localStorage.removeItem("session")
+                window.location.reload()
+            })
+        } else {
+            $("div.navbar").append(`<a href="./login.html" class="right">登录</a>`)
+        }
+        $("#showLogin").remove()
+    })
 </script>
 </html>

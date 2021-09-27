@@ -9,9 +9,7 @@
     <link href="css/fileTree.css" type="text/css" rel="stylesheet">
     <script src="./js/api.js"></script>
     <script src="./js/files.js"></script>
-
     <link href="./css/main.css" type="text/css" rel="stylesheet">
-    <script src="./js/main.js"></script>
 </head>
 <body>
 
@@ -20,7 +18,9 @@
 </div>
 
 <div class="navbar">
-
+    <a href="./index.html">主页</a>
+    <a href="#!">文档管理</a>
+    <a href="./tools.html">脚本类工具</a>
 </div>
 
 <div class="row">
@@ -43,7 +43,7 @@
 
 <script>
     let path = localStorage.getItem("path")
-    if (path == null) path = "."
+    if (path == null) path = "/"
 
     $("#rootPath").click(function () {
         showFiles(path, "rootPath")

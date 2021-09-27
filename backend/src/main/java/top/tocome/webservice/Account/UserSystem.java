@@ -95,6 +95,7 @@ public class UserSystem {
         if (u != null) return Error.AccountExit;
         allUsers.add(new User(id, pwd));
         logger.info("用户" + id + "注册成功");
+        saveUsers();
         return Error.Success;
     }
 
@@ -106,6 +107,7 @@ public class UserSystem {
         if (u == null) return Error.NoSuchAccount;
         allUsers.remove(u);
         logger.info("用户" + id + "删除成功");
+        saveUsers();
         return Error.Success;
     }
 
