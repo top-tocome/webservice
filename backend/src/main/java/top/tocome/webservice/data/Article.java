@@ -11,6 +11,9 @@ public class Article {
 
     public static String savePath = Config.dataPath + "articles/";
 
+    private Article() {
+    }
+
     public Article(String title, String desc, String name) {
         this.title = title;
         this.desc = desc;

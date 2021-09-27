@@ -12,6 +12,9 @@ public class Session {
      */
     public static final int SessionIdLength = 16;
 
+    private Session() {
+    }
+
     public Session(String sessionId) {
         this.sessionId = sessionId;
         createDate = new Date();
@@ -35,8 +38,6 @@ public class Session {
 
     /**
      * 随机创建一个新的session
-     *
-     * @param seed 随机数种子
      */
     public static Session newSession() {
         StringBuilder sb = new StringBuilder();

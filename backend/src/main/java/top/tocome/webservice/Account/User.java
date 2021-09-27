@@ -5,6 +5,9 @@ package top.tocome.webservice.Account;
  */
 public class User {
 
+    private User() {
+    }
+
     public User(String id, String pwd) {
         this.id = id;
         this.pwd = pwd;
