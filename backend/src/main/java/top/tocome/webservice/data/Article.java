@@ -53,10 +53,16 @@ public class Article {
             return;
         }
         File.write(path, content.getBytes());
+    }
+
+    public void modify(String content) {
+        File.write(savePath + name + ".md", content.getBytes());
         lastModify = new Date();
     }
 
     public String read() {
-        return File.read(savePath + name + ".md");
+        if (new File(savePath + name + ".md").exists())
+            return File.read(savePath + name + ".md");
+        return null;
     }
 }

@@ -278,6 +278,41 @@ function newArticle(title, desc, content, success, failed) {
     )
 }
 
+//修改文章
+function modifyArticle(id, title, desc, content, success, failed) {
+    ajax({
+            type: "post",
+            url: "/articles",
+            data: {
+                type: "modify",
+                id: id,
+                title: title,
+                desc: desc,
+                content: content,
+                session: session
+            }
+        },
+        success,
+        failed
+    )
+}
+
+//删除文章
+function deleteArticle(id, success, failed) {
+    ajax({
+            type: "post",
+            url: "/articles",
+            data: {
+                type: "delete",
+                id: id,
+                session: session
+            }
+        },
+        success,
+        failed
+    )
+}
+
 //获取文章
 function getArticle(page, num, success, failed) {
     ajax({

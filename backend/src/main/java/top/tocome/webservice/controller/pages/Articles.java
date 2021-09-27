@@ -50,12 +50,30 @@ public class Articles {
                 Article article = ArticleManager.Instance.getArticleById(id);
                 if (article == null) return Error.Failed;
                 data.put("article", article);
-                data.put("content", article.read());
+                String s = article.read();
+                if (s == null) {
+                    ArticleManager.Instance.deleteArticle(id);
+                    return Error.Failed;
+                }
+                data.put("content", s);
                 return Error.Success;
 
             case "modify":
-
+                session = JSON.parseObject(request.getParameter("session"), Session.class);
+                id = request.getParameter("id");
+                title = request.getParameter("title");
+                desc = request.getParameter("desc");
+                content = request.getParameter("content");
+                if (id == null) return Error.Failed;
+                return UserSystem.Instance.checkPermission(session, PermissionLevel.Admin, u -> ArticleManager.Instance.modifyArticle(id, title, desc, content));
             case "delete":
+                session = JSON.parseObject(request.getParameter("session"), Session.class);
+                id = request.getParameter("id");
+                return UserSystem.Instance.checkPermission(session, PermissionLevel.Admin, u -> {
+                    if (ArticleManager.Instance.deleteArticle(id)) return Error.Success;
+                    return Error.Failed;
+                });
+
             default:
                 return Error.Failed;
         }

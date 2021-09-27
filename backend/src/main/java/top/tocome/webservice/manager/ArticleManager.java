@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import top.tocome.io.File;
 import top.tocome.webservice.data.Article;
 import top.tocome.webservice.data.Config;
+import top.tocome.webservice.data.Error;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,24 @@ public class ArticleManager {
             if (a.id.equals(id)) return a;
         }
         return null;
+    }
+
+    public Error modifyArticle(String id, String title, String desc, String content) {
+        Article article = getArticleById(id);
+        if (article == null) return Error.NoData;
+        article.title = title;
+        article.desc = desc;
+        article.modify(content);
+        return Error.Success;
+    }
+
+    public boolean deleteArticle(String id) {
+        Article article = getArticleById(id);
+        return articles.remove(article);
+    }
+
+    public void deleteArticle(Article article) {
+        articles.remove(article);
     }
 
     public void saveArticles() {

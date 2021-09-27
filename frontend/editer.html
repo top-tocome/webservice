@@ -40,18 +40,21 @@
 
 <div class="footer">
     <button id="saveDraft">暂时保存</button>
-    <button id="save">保存</button>
+    <button id="save">上传</button>
+    <button id="modify">修改</button>
 </div>
 </body>
 <script>
     let MDShader = new showdown.Converter();
 
-    article = JSON.parse(localStorage.getItem("draft"))
-    if (article != null) {
-        $("#title").val(article.title)
-        $("#desc").val(article.desc)
-        $("#content").val(article.content)
-    }
+    getArticleById(localStorage.getItem("articleId"),
+        function (data) {
+            $("#title").val(data.article.title)
+            $("#desc").val(data.article.desc)
+            $("#content").val(data.content)
+            $("div.main").html(MDShader.makeHtml(data.content))
+        })
+
 
     $("textarea").keydown(function () {
         $("#show").html(MDShader.makeHtml($("textarea").val()))
@@ -76,6 +79,18 @@
         let content = $("#content").val()
         if (title == "" || desc == "" || content == "") alert("标题，简介或内容为空")
         else newArticle(title, desc, content, function (data) {
+            alert("上传成功")
+            localStorage.removeItem("draft")
+            window.location.href = "./index.html"
+        })
+    })
+
+    $("#modify").click(function () {
+        let title = $("#title").val()
+        let desc = $("#desc").val()
+        let content = $("#content").val()
+        if (title == "" || desc == "" || content == "") alert("标题，简介或内容为空")
+        else modifyArticle(localStorage.getItem("articleId"), title, desc, content, function (data) {
             alert("上传成功")
             localStorage.removeItem("draft")
             window.location.href = "./index.html"
