@@ -1,0 +1,12 @@
+[
+  {
+    "id": "test",
+    "level": "Root",
+    "login": true,
+    "pwd": "123456",
+    "session": {
+      "createDate": 1632714403579,
+      "sessionId": "aeO1hMfod8WJ95I0"
+    }
+  }
+]
